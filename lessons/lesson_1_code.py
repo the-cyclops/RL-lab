@@ -14,7 +14,7 @@ def random_dangerous_grid_world( environment ):
 	Returns:
 		trajectory: an array containing the sequence of states visited by the agent
 	"""
-	
+	trajectory = []
 	#
 	# YOUR CODE HERE!
 	#
@@ -74,7 +74,7 @@ class RecyclingRobot():
 		#
 		# YOUR CODE HERE!
 		#
-		return self.state
+		return self.states
 
 
 	def step( self, action ):
@@ -83,7 +83,7 @@ class RecyclingRobot():
 		#
 		# YOUR CODE HERE!
 		#
-		return self.state, reward, False, None
+		return self.states, reward, False, None
 
 
 	def render( self ):
@@ -111,6 +111,7 @@ def main():
 	env = RecyclingRobot()
 	state = env.reset()
 	ep_reward = 0
+	
 	for step in range(10):
 		a = numpy.random.randint( 0, env.action_space )
 		new_state, r, _, _ = env.step( a )
