@@ -1,15 +1,6 @@
-# RL-Laboratory
-Official repository for the 2032/2024 Reinforcement Learning Laboratory at the University of Verona.
+# RL-Laboratory🤖
 
-## Assignments
-Following the link to the code snippets for the lessons:
-
-**First Semester**
-- [x] Lesson 1: MDP and Gym Environments [Code!](lessons/lesson_1_code.py) [Results!](results/lesson_1_results.txt) [Slides!](slides/slides_lesson_1.pdf)
-
-## Tutorials
-This repo includes a set of introductory tutorials to help accomplish the exercises. In detail, we provide the following Jupyter notebook that contains the basic instructions for the lab:
-- **Tutorial 1 - Gym Environment:** [Here!](tutorials/tutorial_environment.ipynb)
+Code for the Reinforcement Learning lab of *Reinforcement Learning and Advanced Programming* course, MSc degree in Artificial Intelligence 2023/2024 at the University of Verona.
 
 ## First Set-Up (Conda)
 1. Download [Miniconda](https://docs.conda.io/en/latest/miniconda.html) for your System.
@@ -31,6 +22,17 @@ Python virtual environments users (venv) can avoid the Miniconda installation. T
   - scipy, numpy, gym
   - jupyter, matplotlib, tqdm
   - tensorflow, keras
+
+## Assignments
+Following the link to the code snippets for the lessons:
+
+**First Semester**
+- [ ] Lesson 1: MDP and Gym Environments [Code!](lessons/lesson_1_code.py) [Results!](results/lesson_1_results.txt) [Slides!](slides/slides_lesson_1.pdf)
+
+## Tutorials
+This repo includes a set of introductory tutorials to help accomplish the exercises. In detail, we provide the following Jupyter notebook that contains the basic instructions for the lab:
+- **Tutorial 1 - Gym Environment:** [Here!](tutorials/tutorial_environment.ipynb)
+
 
 ## Contact information
 *  Teaching assistant: **Luca Marzari** - luca.marzari@univr.it
