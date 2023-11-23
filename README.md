@@ -1,6 +1,6 @@
 # RL-Laboratory🤖
 
-Code for the Reinforcement Learning lab of *Reinforcement Learning and Advanced Programming* course, MSc degree in Artificial Intelligence 2023/2024 at the University of Verona.
+Code for the Reinforcement Learning lab of *Reinforcement Learning and Advanced programming for AI* course, MSc degree in Artificial Intelligence 2023/2024 at the University of Verona.
 
 ## First Set-Up (Conda)
 1. Download [Miniconda](https://docs.conda.io/en/latest/miniconda.html) for your System.
