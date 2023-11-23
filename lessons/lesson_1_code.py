@@ -74,7 +74,7 @@ class RecyclingRobot():
 		#
 		# YOUR CODE HERE!
 		#
-		return self.states
+		return self.state
 
 
 	def step( self, action ):
@@ -83,7 +83,7 @@ class RecyclingRobot():
 		#
 		# YOUR CODE HERE!
 		#
-		return self.states, reward, False, None
+		return self.state, reward, False, None
 
 
 	def render( self ):
