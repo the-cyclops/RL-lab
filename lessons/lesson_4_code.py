@@ -30,7 +30,7 @@ def on_policy_mc( environment, maxiters=5000, eps=0.3, gamma=0.99 ):
 def main():
 	print( "\n*************************************************" )
 	print( "*  Welcome to the fourth lesson of the RL-Lab!   *" )
-	print( "*       (Temporal Difference Methods)           *" )
+	print( "*            (Monte Carlo RL Methods)            *" )
 	print( "**************************************************" )
 
 	print("\nEnvironment Render:")
