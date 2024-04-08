@@ -36,7 +36,7 @@ Following the link to the code snippets for the lessons:
 
 **Second Semester**
 - [x] Lesson 7: Tensorflow-PyTorch and Deep Neural Networks [Slides](slides/slides_lesson_7.pdf), [Code](lessons/lesson_7_code.py), [Results](results/lesson_7_results.txt)
-- [ ] Lesson 8: Deep Q-Network [Slides](slides/slides_lesson_8.pdf), [Code](lessons/lesson_8_code.py), [Results](slides/slides_lesson_8.pdf) (see slides)
+- [ ] Lesson 8: Deep Q-Network [Slides](slides/slides_lesson_8.pdf), [Code](lessons/lesson_8_code.py), [Results](results/lesson_8_result.png) (see slides)
 
 
 ## Tutorials
