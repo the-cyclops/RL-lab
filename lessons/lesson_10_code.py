@@ -107,7 +107,8 @@ def training_loop(env, actor_net, critic_net, updateRule, frequency=10, episodes
 			ep_reward += None
 
 			#TODO: exit condition for the episode
-			if True: break
+			done = True
+			if done: break
 
 			#TODO: update the current state
 			state = None
