@@ -49,5 +49,5 @@ This repo includes a set of introductory tutorials to help accomplish the exerci
 
 
 ## Contact information
-*  Teaching assistant: **Luca Marzari** - gabriele.roncolato@univr.it
+*  Teaching assistant: **Gabriele Roncolato** - gabriele.roncolato@univr.it
 *  Professor: **Alberto Castellini** - alberto.castellini@univr.it
