@@ -75,7 +75,7 @@ def sarsa(environment, episodes, alpha, gamma, expl_func, expl_param):
 
 def main():
 	print( "\n*************************************************" )
-	print( "*  Welcome to the fifth lesson of the RL-Lab!   *" )
+	print( "*  Welcome to the fourth lesson of the RL-Lab!   *" )
 	print( "*        (Temporal Difference Methods)           *" )
 	print( "**************************************************" )
 

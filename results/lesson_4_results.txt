@@ -1,5 +1,5 @@
 *************************************************
-*  Welcome to the fifth lesson of the RL-Lab!  *
+*  Welcome to the fourth lesson of the RL-Lab!  *
 *        (Temporal Difference Methods)          *
 **************************************************
 
