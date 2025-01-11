@@ -1,5 +1,5 @@
 ************************************************
-*   Welcome to the sixth lesson of the RL-Lab!   *
+*   Welcome to the fifth lesson of the RL-Lab!   *
 *                  (Dyna-Q)                      *
 **************************************************
 

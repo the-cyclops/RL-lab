@@ -49,7 +49,7 @@ def dynaQ( environment, maxiters=250, n=10, eps=0.3, alfa=0.3, gamma=0.99 ):
 
 def main():
 	print( "\n************************************************" )
-	print( "*   Welcome to the sixth lesson of the RL-Lab!   *" )
+	print( "*   Welcome to the fifth lesson of the RL-Lab!   *" )
 	print( "*                  (Dyna-Q)                      *" )
 	print( "**************************************************" )
 
