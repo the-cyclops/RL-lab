@@ -1,3 +1,4 @@
+ 
 ************************************************
 *   Welcome to the fifth lesson of the RL-Lab!   *
 *                  (Dyna-Q)                      *
@@ -13,6 +14,15 @@ Environment Render:
 [ ] [ ] [ ] [ ] [ ] [ ] [G] 
 
 5) Dyna-Q
+ D   L   L   L   R   D  [X] 
+ D  [W] [W] [W] [X]  D  [X] 
+ R   D  [W] [W] [X]  D  [X] 
+[W]  D  [W] [W] [X]  D  [X] 
+ D   L  [W] [W] [X]  D  [X] 
+ D  [W] [W] [W] [X]  D  [X] 
+ R   R   R   R   R   R  [G] 
+
+5) Dyna-Q+
  D   L   R   R   R   D  [X] 
  D  [W] [W] [W] [X]  D  [X] 
  R   D  [W] [W] [X]  D  [X] 
@@ -21,6 +31,10 @@ Environment Render:
  D  [W] [W] [W] [X]  D  [X] 
  R   R   R   R   R   R  [G] 
 
-	Expected reward with n=0 : -10.1
-	Expected reward with n=25: -10.1
-	Expected reward with n=50: 3.6
+	Expected Dyna-Q reward with n=0: -10.1
+	Expected Dyna-Q reward with n=25: 3.6
+	Expected Dyna-Q reward with n=50: 3.6
+
+	Expected Dyna-Q+ reward with n=0: -10.1
+	Expected Dyna-Q+ reward with n=25: 3.6
+	Expected Dyna-Q+ reward with n=50: 3.6
