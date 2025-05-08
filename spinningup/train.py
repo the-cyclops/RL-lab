@@ -13,6 +13,8 @@ def train_and_plot():
     parser.add_argument("--epochs", type=str, default="50", help="Number of training epochs (default: 50)")
 
     args = parser.parse_args()
+    
+    experiment_data_path = f"spinningup/data/"
 
     train_cmd = [
         "python", "-m", "spinup.run", args.algo,
@@ -20,7 +22,8 @@ def train_and_plot():
         "--env", args.env,
         "--epochs", args.epochs,
         "--exp_name", args.exp_name,
-        "--gamma", "0.999"
+        "--gamma", "0.999",
+        "--data_dir", experiment_data_path
     ]
     plot_cmd = [
         "python", "-m", "spinup.run", "plot", f"spinningup/data/{args.exp_name}/{args.exp_name}_s0"
