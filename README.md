@@ -72,8 +72,8 @@ Following the link to the code snippets for the lessons:
 - [x] Lesson 6: Tensorflow-PyTorch and Deep Neural Networks [Slides](slides/slides_lesson_6.pdf), [Code](lessons/lesson_6_code.py), [Results](results/lesson_6_results.txt)
 - [x] Lesson 7: Deep Q-Network [Slides](slides/slides_lesson_7.pdf), [Code](lessons/lesson_7_code.py), [Results](results/lesson_7_results.txt)
 - [x] Lesson 8: REINFORCE [Slides](slides/slides_lesson_8.pdf), [Code](lessons/lesson_8_code.py), [Results](results/lesson_8_result.png) 
-- [ ] Lesson 9: A2C [Slides](slides/slides_lesson_9.pdf), [Code](lessons/lesson_9_code.py), [Results](results/lesson_9_result.png)
-<!--- - [ ] Lesson 10: PPO [Slides](slides/slides_lesson_10.pdf), [Code](lessons/lesson_9_code.py), [Results](results/lesson_9_result.png)--->
+- [x] Lesson 9: A2C [Slides](slides/slides_lesson_9.pdf), [Code](lessons/lesson_9_code.py), [Results](results/lesson_9_result.png)
+- [ ] Lesson 10: PPO [Slides](slides/slides_lesson_10.pdf), [Code](spinningup), [Results](results/lesson_10_spinningup-ppo.png)
 <!---  - [ ] Lesson 11: DRL in Practice [Code!](lessons/lesson_11_code.py) [Results 1!](results/lesson_11_result.png) [Results 2!](results/lesson_11_results_TB3.png) [Slides!](slides/slides_lesson_11.pdf) --->
 
 **Extra exercise**
