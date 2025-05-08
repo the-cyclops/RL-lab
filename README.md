@@ -52,7 +52,7 @@ Once the training is complete, a graph showing the performance will be visualize
 3. To test a RL agent, run the *test.py* script located inside the *spinningup* folder using the following arguments:
 	- *exp_name*: the name of a past training experiment to be tested (required)
 
-4. The available RL algorithms are: vpg, trpo, ddpg, ppo, sac (note that ddpg, ppo, and sac are to be completed as part of the lessons!)
+4. The available RL algorithms are: vpg, ddpg, ppo, sac (note that ddpg, ppo, and sac are to be completed as part of the lessons!)
 
 5. The available environments are: CartPole-v1, LunarLander-v2, BipedalWalker-v3, Pendulum-v0, Acrobot-v1, MountainCar-v0, MountainCarContinuous-v0, FrozenLake-v0
 
