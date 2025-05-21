@@ -73,7 +73,7 @@ Following the link to the code snippets for the lessons:
 - [x] Lesson 7: Deep Q-Network [Slides](slides/slides_lesson_7.pdf), [Code](lessons/lesson_7_code.py), [Results](results/lesson_7_results.txt)
 - [x] Lesson 8: REINFORCE [Slides](slides/slides_lesson_8.pdf), [Code](lessons/lesson_8_code.py), [Results](results/lesson_8_result.png) 
 - [x] Lesson 9: A2C [Slides](slides/slides_lesson_9.pdf), [Code](lessons/lesson_9_code.py), [Results](results/lesson_9_result.png)
-- [ ] Lesson 10: PPO [Slides](slides/slides_lesson_10.pdf), [Code](spinningup), [Results](results/lesson_10_spinningup-ppo.png)
+- [x] Lesson 10: PPO [Slides](slides/slides_lesson_10.pdf), [Code](spinningup), [Results](results/lesson_10_spinningup-ppo.png)
 - [ ] Lesson 11: DDPG [Slides](slides/slides_lesson_11.pdf), [Code](spinningup), [Results](results/lesson_11_spinningup-ddpg_MountainCar_v0.png)
 
 <!---  - [ ] Lesson 11: DRL in Practice [Code!](lessons/lesson_11_code.py) [Results 1!](results/lesson_11_result.png) [Results 2!](results/lesson_11_results_TB3.png) [Slides!](slides/slides_lesson_11.pdf) --->
