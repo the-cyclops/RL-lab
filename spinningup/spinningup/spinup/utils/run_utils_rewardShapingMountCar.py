@@ -19,6 +19,7 @@ from textwrap import dedent
 import time
 from tqdm import trange
 import zlib
+import gym #ACA
 
 DIV_LINE_WIDTH = 80
 
@@ -85,7 +86,22 @@ def setup_logger_kwargs(exp_name, seed=None, data_dir=None, datestamp=False):
                          exp_name=exp_name)
     return logger_kwargs
 
+class OverrideReward(gym.Wrapper): # ACA: Wrapper: reward shaping for MountainCarContinuous-V0
+    def __init__(self, env):
+        super().__init__(env)
 
+    def step(self, action):
+        state, original_reward, done, info = self.env.step(action)
+        position, velocity = state
+
+        # Shaped reward function
+        shaped_reward = #TODO Put your reward here
+
+        if done and position >= 0.45:
+            shaped_reward += 100.0  # Bonus for reaching goal
+
+        return state, shaped_reward, done, info
+        
 def call_experiment(exp_name, thunk, seed=0, num_cpu=1, data_dir=None, 
                     datestamp=False, **kwargs):
     """
@@ -126,7 +142,7 @@ def call_experiment(exp_name, thunk, seed=0, num_cpu=1, data_dir=None,
         **kwargs: All kwargs to pass to thunk.
 
     """
-    print("In call_experiment")
+    print("-------- In run_utils.py call_experiment")
     # Determine number of CPU cores to run on
     num_cpu = psutil.cpu_count(logical=False) if num_cpu=='auto' else num_cpu
 
@@ -146,13 +162,20 @@ def call_experiment(exp_name, thunk, seed=0, num_cpu=1, data_dir=None,
         kwargs['logger_kwargs'] = setup_logger_kwargs(exp_name, seed, data_dir, datestamp)
     else:
         print('Note: Call experiment is not handling logger_kwargs.\n')
-
+            	
     def thunk_plus():
         # Make 'env_fn' from 'env_name'
+        print("--------- In run_utils.py thunk_plus(): making the gym env")
         if 'env_name' in kwargs:
-            import gym
+            # ACA import gym
             env_name = kwargs['env_name']
-            kwargs['env_fn'] = lambda : gym.make(env_name)
+            
+            def env_fn(): # ACA
+                env = gym.make(env_name)# ACA
+                env = OverrideReward(env)# ACA
+                return env # ACA
+                
+            kwargs['env_fn'] = env_fn # ACA kwargs['env_fn'] = lambda : gym.make(env_name)
             del kwargs['env_name']
 
         # Fork into multiple processes
@@ -494,6 +517,7 @@ class ExperimentGrid:
         """
 
         # Print info about self.
+        print("------In run_utils.py ExperimentGrid.run")
         self.print()
 
         # Make the list of all variants.
