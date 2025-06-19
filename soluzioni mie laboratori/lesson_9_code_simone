@@ -1,0 +1,194 @@
+import warnings; warnings.filterwarnings("ignore")
+import os; os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+import numpy as np
+import matplotlib.pyplot as plt
+import gymnasium, collections
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from torch.distributions import Categorical
+import torch.nn.functional as F
+import seaborn as sns
+import pandas as pd
+
+
+def mse(network, dataset_input, target, action):
+	predicted_value = network(dataset_input)
+	if isinstance(target, float):  # scalar target (e.g., reward + γ maxQ)
+		target = torch.tensor([target], dtype=torch.float32)
+	elif isinstance(target, np.ndarray):
+		target = torch.tensor(target, dtype=torch.float32)
+
+	return F.mse_loss(predicted_value.squeeze(0)[action].unsqueeze(0), target)
+
+
+class TorchModel(nn.Module):
+	"""
+	Class that generates a neural network with PyTorch and specific parameters.
+
+	Args:
+		nInputs: number of input nodes
+		nOutputs: number of output nodes
+		nLayer: number of hidden layers
+		nNodes: number nodes in the hidden layers
+		
+	"""
+	
+	# Initialize the neural network
+	def __init__(self, nInputs, nOutputs, nLayer, nNodes, last_activation):
+		
+		super(TorchModel, self).__init__()
+		self.nLayer = nLayer
+		self.last_activation= last_activation
+
+		# input layer
+		self.fc1 = nn.Linear(nInputs, nNodes)
+
+		#hidden layers
+		for i in range(nLayer):
+			layer_name = f"fc{i+2}"
+			self.add_module(layer_name, nn.Linear(nNodes, nNodes))  
+
+		#output
+		self.output = nn.Linear(nNodes, nOutputs)
+
+	def forward(self, x):
+		x = F.relu(self.fc1(x))
+		for i in range(2, self.nLayer + 2):
+			x = F.relu(getattr(self, f'fc{i}')(x).to(x.dtype))
+		x = self.output(x)
+		return x if self.last_activation == F.linear else self.last_activation(x, dim=1)
+
+
+def training_loop(env, actor_net, critic_net, updateRule, frequency=10, episodes=100, keras=True):
+
+	if not keras:
+		actor_optimizer = optim.Adam(actor_net.parameters()) 
+		critic_optimizer = optim.Adam(critic_net.parameters())
+
+	rewards_list, reward_queue = [], collections.deque(maxlen=100)
+	memory_buffer = []
+	for ep in range(episodes):
+		state = env.reset()[0]
+		ep_reward = 0
+		while True:
+			state_tensor = torch.tensor(state, dtype=torch.float32).unsqueeze(0)
+
+			with torch.no_grad():
+				action_probs = actor_net(state_tensor)
+			m = Categorical(action_probs)
+			action = m.sample().item()
+
+			next_state, reward, terminated, truncated, _ = env.step(action)
+			done = terminated or truncated
+
+			next_state_tensor = torch.tensor(next_state, dtype=torch.float32).unsqueeze(0)
+			memory_buffer.append([state_tensor, action, reward, next_state_tensor, done])
+			ep_reward += reward
+
+			if done:
+				break
+			state = next_state
+
+		reward_queue.append(ep_reward)
+		rewards_list.append(np.mean(reward_queue))
+		print(f"episode {ep:4d}: rw: {int(ep_reward):3d} (avg: {np.mean(reward_queue):5.2f})")
+
+		if ep % frequency == 0 and ep != 0:
+			updateRule(actor_net, critic_net, memory_buffer, actor_optimizer, critic_optimizer, keras)
+			memory_buffer = []
+
+	env.close()
+	return rewards_list
+
+
+def A2C(actor_net, critic_net, memory_buffer, actor_optimizer, critic_optimizer, keras, gamma=0.99):
+
+	for _ in range(10):
+		np.random.shuffle(memory_buffer)
+
+		states = [entry[0] for entry in memory_buffer]
+		actions = torch.tensor([entry[1] for entry in memory_buffer], dtype=torch.int64)
+		rewards = torch.tensor([entry[2] for entry in memory_buffer], dtype=torch.float32).unsqueeze(1)
+		next_states = torch.cat([entry[3] for entry in memory_buffer], dim=0)
+		dones = torch.tensor([entry[4] for entry in memory_buffer], dtype=torch.float32).unsqueeze(1)
+
+		states = torch.cat(states, dim=0)
+
+		# --- Critic update ---
+		with torch.no_grad():
+			targets = rewards + (1 - dones) * gamma * critic_net(next_states)
+
+		predictions = critic_net(states)
+		critic_loss = F.mse_loss(predictions, targets)
+
+		critic_optimizer.zero_grad()
+		critic_loss.backward()
+		critic_optimizer.step()
+
+	# --- Actor update ---
+	predictions = actor_net(states)
+	action_probs = predictions.gather(1, actions.unsqueeze(1)).squeeze()
+
+	with torch.no_grad():
+		advantages = targets - critic_net(states)
+
+	log_probs = torch.log(action_probs + 1e-10) # to avoid log(0)
+	actor_loss = -torch.mean(log_probs * advantages.squeeze())
+
+	actor_optimizer.zero_grad()
+	actor_loss.backward()
+	actor_optimizer.step()
+
+	
+
+def main(): 
+	print( "\n*************************************************" )
+	print( "*  Welcome to the nineth lesson of the RL-Lab!   *" )
+	print( "*                    (A2C)                      *" )
+	print( "*************************************************\n" )
+
+	training_episodes = 5000
+
+	print("\nTraining torch model...\n")
+	rewards_torch = []
+	for _ in range(3):
+		env = gymnasium.make("CartPole-v1")
+		actor_net = TorchModel(nInputs=4, nOutputs=2, nLayer=2, nNodes=32, last_activation=F.softmax) # 2 output per ogni azione (Cart Pole)
+		critic_net = TorchModel(nInputs=4, nOutputs=1, nLayer=1, nNodes=32, last_activation=F.linear) # output --> value function
+		rewards_torch.append(training_loop(env, actor_net, critic_net, A2C, episodes=training_episodes, keras=False))
+
+
+	# plotting the results
+	t = list(range(0, training_episodes))
+
+	data_torch = {'Environment Step': [], 'Mean Reward': []}
+	for _, rewards in enumerate(rewards_torch):
+		for step, reward in zip(t, rewards):
+			data_torch['Environment Step'].append(step)
+			data_torch['Mean Reward'].append(reward)
+	df_torch = pd.DataFrame(data_torch)
+	
+	# Plotting
+	sns.set_style("darkgrid")
+	#sns.color_palette("Set2")
+	plt.figure(figsize=(8, 6))  # Set the figure size
+	sns.lineplot(data=df_torch, x='Environment Step', y='Mean Reward', label='PyTorch', errorbar='se')
+
+	# Add title and labels
+	plt.title('Comparison PyTorch-Keras A2C on CartPole-v1')
+	plt.xlabel('Episodes')
+	plt.ylabel('Mean Reward')
+
+	# Show legend
+	plt.legend()
+
+	# Show plot
+	plt.show()
+
+if __name__ == "__main__":
+	main()	
+'''
+Stavi ricalcolando la funzione di valore (critic) dentro il blocco di ottimizzazione dell'attore, ma senza detach().
+Questo faceva propagare il gradiente anche attraverso la rete del critico, 
+cosa che non va fatta: il critico si allena separatamente, non insieme all’attore.'''
